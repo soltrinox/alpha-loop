@@ -88,4 +88,53 @@ A row is `PASS` when that command exited with `passExit` on the session git SHA 
 
 ## Newsletter demo
 
-SA5 will add a Newsletter demo section here: a one-time `newsletter-signup:template` image, a demo repo branch or fork per run, and a two-section report (application `PASS`, agent `NOT_APPLICABLE` when no MCP server is configured).
+The newsletter signup demo lives under `examples/newsletter-signup/`. It is a Next.js email form with `POST /api/signup`, `GET /api/health`, and no public route that serves the stored address file. Alpha Loop is not the service under test. The demo proves the application profile against a running container and records the agent profile as not applicable when no MCP server is configured.
+
+### One-time template image
+
+The Dockerfile tags `newsletter-signup:template`. The end-to-end script builds that tag only when it is missing. A later validation run does not rebuild or retag it. A code fix for a later run is a commit on a new branch or fork of the demo repo. It does not change this image. A new image, if required later, gets a new tag.
+
+### Demo repo and branch
+
+Default repo name: `newsletter-signup-demo` under the authenticated `gh` user (override with `DEMO_REPO=owner/name`). The first successful run creates that GitHub repo from the template directory. Its default branch stays the unmodified template.
+
+Each validation run copies onto a new branch `security-run/<timestamp>` (or `DEMO_FORK=1` to fork, then branch). Milestones, `security-check` issues, `.alpha-loop/security-plan.json`, and `security-profile-report.md` are written on that copy only. They are not created on the template default branch.
+
+### Config and oracles
+
+The copy’s `.alpha-loop.yaml` sets `security_checks: true` and leaves both profiles enabled at their default URLs. It does not set `security_profiles.agent.enabled: false`. The scan decides applicability. `templates/security-profiles/oracles.json` on the template binds only application checks: health returns 200, empty email is rejected, valid email is accepted, and the stored file is not fetched from a public path.
+
+### Script
+
+```bash
+# From the Alpha Loop checkout (build dist first: pnpm build)
+./examples/newsletter-signup/test-security-e2e.sh
+
+# Optional
+DEMO_REPO=myorg/newsletter-signup-demo ./examples/newsletter-signup/test-security-e2e.sh
+DEMO_FORK=1 ./examples/newsletter-signup/test-security-e2e.sh
+DRY_RUN=1 ./examples/newsletter-signup/test-security-e2e.sh   # report shape without live Docker/gh
+```
+
+Steps the script performs:
+
+1. Build `newsletter-signup:template` only if missing.
+2. `docker compose up -d` from that image; wait for `/api/health` 200.
+3. Create the demo repo on first run when `gh` auth works; each run creates `security-run/<timestamp>` (or a fork when `DEMO_FORK=1`); clone that copy to a temp directory.
+4. `alpha-loop init --sec-mile --yes` in the copy. Agent profile is `NOT_APPLICABLE` (no MCP).
+5. Create milestones and `security-check` issues on the branch or fork only.
+6. Run the security executor against the container from `newsletter-signup:template`.
+7. Write `security-profile-report.md` on the copy.
+8. `docker compose down`. The script does not remove `newsletter-signup:template`.
+
+### Two-section report
+
+`security-profile-report.md` records the template image ID, demo repo, and branch, then:
+
+| Section | Source | Result |
+|---------|--------|--------|
+| Application | https://github.com/mitre/cti | `PASS` only when every selected oracle row is `PASS` |
+| Agent | https://github.com/secure-agentic-framework/saf-mcp | `NOT_APPLICABLE` — no MCP server configured for the selected agent; milestone count 0 |
+| Overall | — | `PASS` when application is `PASS` and agent is `NOT_APPLICABLE` |
+
+An application `PASS` means those HTTP oracles exited with `passExit` against the template container for that run. It does not state that the form is immune to the ATT&CK tactic.

@@ -65,6 +65,11 @@ describe('docs/security-profiles.md', () => {
     expect(markdown).toContain('NOT_RUN');
     expect(markdown).toContain('SOC 2');
     expect(markdown).toContain('Newsletter demo');
+    expect(markdown).toContain('newsletter-signup:template');
+    expect(markdown).toContain('DEMO_REPO');
+    expect(markdown).toContain('DEMO_FORK=1');
+    expect(markdown).toContain('NOT_APPLICABLE');
+    expect(markdown).toContain('test-security-e2e.sh');
   });
 
   it('declare YAML block loads with both profiles enabled at default URLs', () => {
