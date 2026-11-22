@@ -49,6 +49,11 @@ export type RunSecurityExecutorInput = {
   config: Config;
   /** When false, every selected row is NOT_RUN and no command runs. */
   productSuitePassed: boolean;
+  /**
+   * When set, every selected row is NOT_RUN with this reason and no command
+   * runs (used by --skip-sec). Takes precedence over productSuitePassed.
+   */
+  skipReason?: string;
 };
 
 export type RunSecurityExecutorResult = {
@@ -94,12 +99,19 @@ export function loadSecurityProof(logsDir: string): SecurityProof | null {
 export async function runSecurityExecutor(
   input: RunSecurityExecutorInput,
 ): Promise<RunSecurityExecutorResult> {
-  const { plan, worktree, gitSha, logsDir, config, productSuitePassed } = input;
+  const { plan, worktree, gitSha, logsDir, config, productSuitePassed, skipReason } = input;
   mkdirSync(logsDir, { recursive: true });
 
   const selected = plan.checks.filter((check) => check.selected);
   const catalogRevisions = collectCatalogRevisions(plan, selected);
   const results: SecurityCheckResult[] = [];
+
+  if (skipReason) {
+    for (const check of selected) {
+      results.push(writeNotRunResult(check, logsDir, skipReason));
+    }
+    return finalize(results, gitSha, catalogRevisions, productSuitePassed, logsDir);
+  }
 
   if (!productSuitePassed) {
     for (const check of selected) {

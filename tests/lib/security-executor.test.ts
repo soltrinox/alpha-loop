@@ -171,6 +171,27 @@ describe('security executor', () => {
     expect(existsSync(result.results[0].logFile)).toBe(true);
   });
 
+  test('skipReason forces NOT_RUN even when productSuitePassed is true', async () => {
+    const plan = makePlan([
+      makeCheck({ techniqueId: 'T1190', command: 'exit 1' }),
+    ]);
+
+    const result = await runSecurityExecutor({
+      plan,
+      worktree,
+      gitSha: SHA_CURRENT,
+      logsDir,
+      config: makeConfig(),
+      productSuitePassed: true,
+      skipReason: 'Skipped via --skip-sec; security checks not run.',
+    });
+
+    expect(result.results).toHaveLength(1);
+    expect(result.results[0].status).toBe('NOT_RUN');
+    expect(result.results[0].reason).toMatch(/skip-sec/i);
+    expect(result.passed).toBe(false);
+  });
+
   test('FAIL for a blocked command with a production host even when allowed_commands is empty', async () => {
     const plan = makePlan([
       makeCheck({
