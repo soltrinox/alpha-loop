@@ -27,6 +27,14 @@ Test Suites: 2 passed, 2 total
 Tests:       18 passed, 18 total
 ```
 
+## Commits
+
+| SHA | Contents |
+|-----|----------|
+| `3301ad10d368c120eaf2498f1874bb63633f270e` | `src/lib/security-executor.ts`, `src/lib/automation-policy.ts` deny rule |
+| `3aa2c3cedf595bb844b6cadbcd68857b7b71c804` | unit tests + this summary |
+
 ## Notes
 
-- Implementation sources for the executor and deny rule were already on `master` at `3301ad1` when tests were finalized; the follow-up commit adds the SA2 unit tests and deny-policy coverage.
+- Implementation sources for the executor and deny rule landed on `master` at `3301ad1` before the unit-test commit.
+- Left SA1 working-tree files unstaged: `src/lib/config.ts`, `src/lib/security-surfaces.ts`.
