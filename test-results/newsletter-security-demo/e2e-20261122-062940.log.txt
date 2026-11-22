@@ -1,0 +1,133 @@
+[newsletter-e2e] start timestamp=20261122-062940 dry_run=0
+[newsletter-e2e] alpha-loop: node /Users/rosario/work/ALPHA-LOOP/dist/cli.js
+[newsletter-e2e] image newsletter-signup:template already present — skip build
+[newsletter-e2e] template image id=sha256:b052904fa538580241563c1ed350515e5ca3b864e7b30dd8cf4a9f7aa140b50f
+[newsletter-e2e] compose up from newsletter-signup:template
+ Network newsletter-signup_default Creating 
+ Network newsletter-signup_default Creating 
+ Network newsletter-signup_default Created 
+ Network newsletter-signup_default Created 
+ Container newsletter-signup-newsletter-1 Creating 
+ Container newsletter-signup-newsletter-1 Created 
+ Container newsletter-signup-newsletter-1 Starting 
+ Container newsletter-signup-newsletter-1 Started 
+[newsletter-e2e] health 200 at http://127.0.0.1:3100/api/health
+[newsletter-e2e] DEMO_REPO=soltrinox/newsletter-signup-demo
+[newsletter-e2e] demo repo exists: soltrinox/newsletter-signup-demo
+[newsletter-e2e] cloning soltrinox/newsletter-signup-demo and creating branch security-run/20261122-062940
+Cloning into '/var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T//newsletter-security-run.3c8xkv'...
+remote: 
+remote: Create a pull request for 'security-run/20261122-062940' on GitHub by visiting:        
+remote:      https://github.com/soltrinox/newsletter-signup-demo/pull/new/security-run/20261122-062940        
+remote: 
+To github.com:soltrinox/newsletter-signup-demo.git
+ * [new branch]      security-run/20261122-062940 -> security-run/20261122-062940
+branch 'security-run/20261122-062940' set up to track 'origin/security-run/20261122-062940'.
+[newsletter-e2e] running alpha-loop init --sec-mile --yes in copy
+[0;36m[STEP][0m  22:29:46 Step 1: Configuration
+[0;34m[INFO][0m  22:29:46 Detected TypeScript / Next.js, package manager: npm, base branch: main
+[0;32m[OK][0m  22:29:46 Added 6 new commented option(s) to .alpha-loop.yaml: label, auto_merge, dev_command, max_session_duration, automation_policy, harnesses
+[0;36m[STEP][0m  22:29:46 Step 2: Git ignore
+[0;32m[OK][0m  22:29:46 Updated .gitignore for alpha-loop
+[0;36m[STEP][0m  22:29:46 Step 3: Legacy migration
+[0;34m[INFO][0m  22:29:46 Nothing to migrate — no legacy assets found or all destinations already exist.
+[0;36m[STEP][0m  22:29:46 Step 4: Seed templates
+[0;32m[OK][0m  22:29:46 Seeded 13 skill(s) to .alpha-loop/templates/skills/
+[0;32m[OK][0m  22:29:46 Seeded 2 agent(s) to .alpha-loop/templates/agents/
+[0;32m[OK][0m  22:29:46 Seeded 15 eval file(s) to .alpha-loop/evals/cases/
+[0;36m[STEP][0m  22:29:46 Step 5: Playwright CLI
+[1;33m[WARN][0m  22:29:46 playwright-cli not installed — live verification will not be available
+[0;34m[INFO][0m  22:29:46   Install: npm install -g @anthropic-ai/claude-code
+[0;34m[INFO][0m  22:29:46   Then run: alpha-loop init (or playwright-cli install --skills)
+[0;36m[STEP][0m  22:29:46 Step 6: Project vision
+[0;34m[INFO][0m  22:29:46 Run "alpha-loop plan" to set up your project vision and scope
+[0;36m[STEP][0m  22:29:46 Step 7: Scan codebase
+[0;36m[STEP][0m  22:29:46 Scanning codebase for project context...
+[1;33m[WARN][0m  22:29:49 Project context output rejected: missing required heading(s): ## Architecture, ## Conventions, ## Critical Rules, ## Active State
+[1;33m[WARN][0m  22:29:49 Agent stdout excerpt: Invalid API key · Please run /login
+[0;36m[STEP][0m  22:29:49 Generating baseline instructions file...
+[1;33m[WARN][0m  22:29:53 Instructions generation output rejected: missing managed marker on first line
+[1;33m[WARN][0m  22:29:53 Agent stdout excerpt: Invalid API key · Please run /login
+[1;33m[WARN][0m  22:29:53 Instructions generation failed validation — will retry on next scan
+[0;36m[STEP][0m  22:29:53 Security milestones (--sec-mile)
+
+Detected security surfaces:
+  [x] public-http: dependency:next, path:app/api/, path:app/api/health/, path:app/api/health/route.ts, path:app/api/signup/, path:app/api/signup/route.ts
+  [x] credentials-at-rest: path:.env.example
+  [x] command-execution: path:scripts/oracle-checks.mjs, path:scripts/run-security-executor.mjs, path:scripts/smoke.test.mjs, path:test-security-e2e.sh
+  [ ] cloud-control-plane: none
+  [ ] mcp: no MCP server named for selected agent
+
+[0;34m[INFO][0m  22:29:53 --yes: offering techniques for detected surfaces only
+[0;34m[INFO][0m  22:29:56 application catalog: https://github.com/mitre/cti (watched SHA e79c7c53d13c08cc21ba3ad77d4f8f49bf64ff07)
+[0;34m[INFO][0m  22:29:56 --yes: selecting 4 technique(s)
+[0;34m[INFO][0m  22:29:56 Reusing milestone: Security: T1078 (public-http)
+[0;32m[OK][0m  22:30:00 Created issue #5: T1078 [public-http]
+[0;34m[INFO][0m  22:30:00 Reusing milestone: Security: T1133 (public-http)
+[0;32m[OK][0m  22:30:04 Created issue #6: T1133 [public-http]
+[0;34m[INFO][0m  22:30:04 Reusing milestone: Security: T1190 (public-http)
+[0;32m[OK][0m  22:30:10 Created issue #7: T1190 [public-http]
+[0;34m[INFO][0m  22:30:10 Reusing milestone: Security: T1552 (credentials-at-rest)
+[0;35m[RATE][0m  22:30:15 5000/5000 remaining (100%)
+[0;32m[OK][0m  22:30:15 Created issue #8: T1552 [credentials-at-rest]
+[0;36m[STEP][0m  22:30:15 Step 8: Sync to harnesses
+[0;34m[INFO][0m  22:30:15 Synced [claude] skills/ → .claude/skills
+[0;34m[INFO][0m  22:30:15 Synced [claude] agents/ → .claude/agents
+[0;32m[OK][0m  22:30:15 Synced templates to claude
+[0;36m[STEP][0m  22:30:15 Step 9: Issue templates
+[0;32m[OK][0m  22:30:15 Created GitHub issue template(s): agent-ready task, epic
+[0;36m[STEP][0m  22:30:15 Step 10: GitHub labels
+[0;32m[OK][0m  22:30:15 All required labels exist
+[0;36m[STEP][0m  22:30:15 Step 11: Project board statuses
+[0;34m[INFO][0m  22:30:15 No project board configured — skipping status check
+[0;36m[STEP][0m  22:30:15 Step 11: Commit generated files
+[0;32m[OK][0m  22:30:15 Alpha-loop initialization complete!
+[newsletter-e2e] running security executor (DRY_RUN=0)
+executor proof: /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T/newsletter-security-run.3c8xkv/.alpha-loop/logs/security-demo/security-proof.json
+wrote /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T/newsletter-security-run.3c8xkv/security-profile-report.md
+overall=PASS
+[newsletter-e2e] report: /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T//newsletter-security-run.3c8xkv/security-profile-report.md
+[newsletter-e2e] evidence copy: /Users/rosario/work/ALPHA-LOOP/test-results/newsletter-security-demo/security-profile-report-20261122-062940.md
+To github.com:soltrinox/newsletter-signup-demo.git
+   311d350..4afaeb1  HEAD -> security-run/20261122-062940
+[newsletter-e2e] image newsletter-signup:template retained after run
+[newsletter-e2e] done overall report follows:
+# Security profile report
+
+- Template image: `newsletter-signup:template`
+- Template image ID: `sha256:b052904fa538580241563c1ed350515e5ca3b864e7b30dd8cf4a9f7aa140b50f`
+- Demo repo: `soltrinox/newsletter-signup-demo`
+- Branch: `security-run/20261122-062940`
+- Base URL: `http://127.0.0.1:3100`
+- Generated: 2026-11-22T06:30:16.109Z
+
+## Application profile
+
+- Source: https://github.com/mitre/cti
+- Section result: **PASS**
+
+| Technique | Milestone | Status | Reason |
+|-----------|-----------|--------|--------|
+| T1078 | Security: T1078 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1133 | Security: T1133 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1190 | Security: T1190 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1552 | Security: T1552 (credentials-at-rest) | PASS | Exit code 0 matched passExit 0. |
+
+## Agent profile
+
+- Source: https://github.com/secure-agentic-framework/saf-mcp
+- Section result: **NOT_APPLICABLE**
+- Reason: no MCP server configured for the selected agent
+- Milestone count: 0
+
+## Overall
+
+**PASS** (application PASS + agent NOT_APPLICABLE)
+
+[newsletter-e2e] compose down (keeping image newsletter-signup:template)
+ Container newsletter-signup-newsletter-1 Stopping 
+ Container newsletter-signup-newsletter-1 Stopped 
+ Container newsletter-signup-newsletter-1 Removing 
+ Container newsletter-signup-newsletter-1 Removed 
+ Network newsletter-signup_default Removing 
+ Network newsletter-signup_default Removed 

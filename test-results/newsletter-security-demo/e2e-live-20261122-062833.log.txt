@@ -1,0 +1,57 @@
+[newsletter-e2e] start timestamp=20261122-062833 dry_run=0
+[newsletter-e2e] alpha-loop: node /Users/rosario/work/ALPHA-LOOP/dist/cli.js
+[newsletter-e2e] image newsletter-signup:template already present — skip build
+[newsletter-e2e] template image id=sha256:b052904fa538580241563c1ed350515e5ca3b864e7b30dd8cf4a9f7aa140b50f
+[newsletter-e2e] compose up from newsletter-signup:template
+[newsletter-e2e] health 200 at http://127.0.0.1:3100/api/health
+[newsletter-e2e] DEMO_REPO=soltrinox/newsletter-signup-demo
+[newsletter-e2e] creating demo repo soltrinox/newsletter-signup-demo from template (default branch = unmodified template)
+[newsletter-e2e] cloning soltrinox/newsletter-signup-demo and creating branch security-run/20261122-062833
+Switched to a new branch 'security-run/20261122-062833'
+On branch security-run/20261122-062833
+nothing to commit, working tree clean
+[newsletter-e2e] running alpha-loop init --sec-mile --yes in copy
+[newsletter-e2e] running security executor (DRY_RUN=0)
+executor proof: /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T/newsletter-security-run.Om2Rif/.alpha-loop/logs/security-demo/security-proof.json
+wrote /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T/newsletter-security-run.Om2Rif/security-profile-report.md
+overall=PASS
+[newsletter-e2e] report: /var/folders/f1/_jlm457d6ts_f77gqp7z08q40000gn/T//newsletter-security-run.Om2Rif/security-profile-report.md
+[newsletter-e2e] evidence copy: /Users/rosario/work/ALPHA-LOOP/test-results/newsletter-security-demo/security-profile-report-20261122-062833.md
+[security-run/20261122-062833 7a53667] docs: security profile report 20261122-062833
+ 2 files changed, 88 insertions(+), 1 deletion(-)
+ create mode 100644 .alpha-loop/security-plan.json
+[newsletter-e2e] image newsletter-signup:template retained after run
+[newsletter-e2e] done overall report follows:
+# Security profile report
+
+- Template image: `newsletter-signup:template`
+- Template image ID: `sha256:b052904fa538580241563c1ed350515e5ca3b864e7b30dd8cf4a9f7aa140b50f`
+- Demo repo: `soltrinox/newsletter-signup-demo`
+- Branch: `security-run/20261122-062833`
+- Base URL: `http://127.0.0.1:3100`
+- Generated: 2026-11-22T06:29:31.203Z
+
+## Application profile
+
+- Source: https://github.com/mitre/cti
+- Section result: **PASS**
+
+| Technique | Milestone | Status | Reason |
+|-----------|-----------|--------|--------|
+| T1078 | Security: T1078 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1133 | Security: T1133 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1190 | Security: T1190 (public-http) | PASS | Exit code 0 matched passExit 0. |
+| T1552 | Security: T1552 (credentials-at-rest) | PASS | Exit code 0 matched passExit 0. |
+
+## Agent profile
+
+- Source: https://github.com/secure-agentic-framework/saf-mcp
+- Section result: **NOT_APPLICABLE**
+- Reason: no MCP server configured for the selected agent
+- Milestone count: 0
+
+## Overall
+
+**PASS** (application PASS + agent NOT_APPLICABLE)
+
+[newsletter-e2e] compose down (keeping image newsletter-signup:template)
