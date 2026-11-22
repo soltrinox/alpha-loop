@@ -22,6 +22,12 @@ Tests:       1 skipped, 1579+ passed
 
 (Plus docs + e2e suites: 4 passed.)
 
+## Commit / push
+
+- **SHA:** `8386218443be00b280ced02eebb6bc6f8fb7621c`
+- **Message:** `docs: document security profiles and add fixture proof`
+- **Push:** `ea27508..8386218` → `origin/master` (fast-forward, no force)
+
 ## Not done
 
 - SA5 newsletter demo (intentionally out of scope).
