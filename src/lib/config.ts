@@ -1,5 +1,6 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, writeFileSync, renameSync } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 import {
   DEFAULT_SECURITY_CHECKS,
@@ -1660,4 +1661,37 @@ export function selectRoutingProfile(
   if (profile.length === 0) return undefined;
   if (profile.length === 1 || issueId === undefined) return profile[0];
   return profile[fnv1a32(String(issueId)) % profile.length];
+}
+
+/**
+ * Set `security_checks` in `.alpha-loop.yaml`.
+ * Prefers an in-place key edit so annotated comments stay intact.
+ */
+export function writeSecurityChecks(
+  projectDir: string,
+  enabled: boolean,
+  configPath = '.alpha-loop.yaml',
+): void {
+  const path = join(projectDir, configPath);
+  const value = enabled ? 'true' : 'false';
+  const line = `security_checks: ${value}`;
+
+  if (!existsSync(path)) {
+    writeFileSync(path, `${line}\n`);
+    return;
+  }
+
+  const original = readFileSync(path, 'utf-8');
+  let next: string;
+  if (/^security_checks:\s*(true|false)\s*$/m.test(original)) {
+    next = original.replace(/^security_checks:\s*(true|false)\s*$/m, line);
+  } else if (/^#\s*security_checks:\s*(true|false)?\s*$/m.test(original)) {
+    next = original.replace(/^#\s*security_checks:\s*(true|false)?\s*$/m, line);
+  } else {
+    next = `${original.replace(/\s*$/, '')}\n\n${line}\n`;
+  }
+
+  const temporary = `${path}.${process.pid}.tmp`;
+  writeFileSync(temporary, next);
+  renameSync(temporary, path);
 }
