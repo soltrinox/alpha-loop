@@ -3,7 +3,7 @@
 **Date:** 2026-11-21 (PT)  
 **Workspace:** `/Users/rosario/work/ALPHA-LOOP`  
 **Plan:** `/Users/rosario/.cursor/plans/security_milestone_gate_bccbd649.plan.md` (not edited)  
-**Branch:** `master` @ `c929ab5b2a3ee24bbbdd236b432cd3babfea2ca5` (tip before this summary commit)  
+**Branch:** `master` (CONTINUE tip includes this summary; see commit table)  
 **Docs:** [docs/security-profiles.md](../docs/security-profiles.md)
 
 ## Verdict
@@ -91,14 +91,16 @@ Some commits had the commit-msg hook rewrite the subject to `Co-authored-by: Cur
 | `177c266` | `177c266bf727370e0db363f75cf548ddf75cd096` | *(hook rewrite)* intended: `feat: add newsletter signup security demo` | SA5 |
 | `c047c99` | `c047c997eb43fb994eeb34346cf9f0a91519607b` | *(hook rewrite)* intended: docs tweak SA5 summary SHAs | SA5 summary |
 | `c929ab5` | `c929ab5b2a3ee24bbbdd236b432cd3babfea2ca5` | `docs: update session summary to include new security checks` | SA5 summary |
+| `4794ab7` | `4794ab73e69dd24757c211327449d77679851679` | *(hook rewrite)* intended: `docs: summarize security milestone gate SA0–SA5` | CONTINUE summary |
 
 Per-phase notes: `SUMMARY/2026-11-21-sa{1,2,3,4,5}-*.md`.
 
 ## Git status at CONTINUE
 
-- Branch `master` matched `origin/master`.
+- Branch `master` matched `origin/master` before this summary.
 - Working tree clean (no uncommitted SA feature files).
 - Action taken: add this consolidated summary; commit with a conventional message; push (no `--force`, no `--no-verify`).
+- Commit-msg hook again rewrote the subject on `4794ab7` to `Co-authored-by` only. Not amended; not force-pushed. Intended subject recorded in the table above.
 
 ## Re-run
 
