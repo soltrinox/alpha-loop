@@ -160,6 +160,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { emitLifecycleEvent } from '../../src/lib/events';
 import { spawnAgent } from '../../src/lib/agent';
+import { defaultSecurityProfiles } from '../../src/lib/security-types.js';
 
 const mockExec = exec as jest.MockedFunction<typeof exec>;
 const mockLog = log as jest.Mocked<typeof log>;
@@ -251,6 +252,8 @@ function makeConfig(overrides: Record<string, unknown> = {}) {
     pricing: {},
     pipeline: {},
     preferEpics: false,
+    securityChecks: false,
+    securityProfiles: defaultSecurityProfiles(),
     ...overrides,
   };
 }
